@@ -3,7 +3,7 @@ const config = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    runtime: 'edge'
+    runtime: 'experimental-edge'
   }
 }
 
