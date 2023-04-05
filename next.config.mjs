@@ -3,8 +3,9 @@ const config = {
   reactStrictMode: true,
   output: 'export',
   experimental: {
-    appDir: true
+    appDir: true,
+    runtime: 'edge'
   }
 }
 
-module.exports = config
+export default config
