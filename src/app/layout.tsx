@@ -1,3 +1,4 @@
+import Header from 'components/Header'
 import 'tailwindcss/tailwind.css'
 
 export default function Layout ({
@@ -12,6 +13,7 @@ export default function Layout ({
       <title>Document</title>
     </head>
     <body className="bg-stone-950 text-white">
+      <Header className="mb-4" />
       <main>
         {children}
       </main>
