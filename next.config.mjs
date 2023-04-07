@@ -2,8 +2,7 @@
 const config = {
   reactStrictMode: true,
   experimental: {
-    appDir: true,
-    runtime: 'experimental-edge'
+    appDir: true
   }
 }
 
