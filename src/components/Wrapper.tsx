@@ -13,7 +13,7 @@ export default function Wrapper ({
 }: Props) {
   return (
     <div className="flex h-[calc(100vh-4rem)]">
-      <div className="min-w-[18rem] max-w-[18rem] bg-stone-800 py-4 pl-8 px-8 max-h-[calc(100vh-4rem)] overflow-y-scroll">
+      <div className="min-w-[18rem] max-w-[18rem] bg-stone-800 py-4 pl-8 px-8 max-h-[calc(100vh-4rem)] overflow-y-auto">
         {children}
       </div>
 
