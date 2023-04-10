@@ -1,15 +1,23 @@
 'use client'
-import type { MouseEvent } from 'react'
+import type { MouseEvent, ChangeEvent } from 'react'
 import { useRef } from 'react'
+
+export interface IOnChangePayload {
+  value: string
+  name: string
+}
 
 interface Props {
   title: string
   measurer: string
   min: number
   max: number
-  value: number
-  onChange: (value: number) => void
+  value: string
+  onChange: (value: IOnChangePayload) => void
+  name: string
 }
+
+const numberRegExp = /^(((0|[1-9]+))?(\.)?)([0-9]+)?$/
 
 export default function Range ({
   title,
@@ -17,33 +25,44 @@ export default function Range ({
   min,
   max,
   value,
-  onChange
+  onChange,
+  name
 }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
 
   let thePercentage = 0
+  const valueNumber = Number(value)
 
-  if (value > max) thePercentage = 100
-  else if (value > min) thePercentage = (value * 100) / max
+  if (!isNaN(valueNumber)) {
+    if (valueNumber > max) thePercentage = 100
+    else if (valueNumber > min) thePercentage = (valueNumber * 100) / max
+  }
 
-  const handleOnMouseMove = (e: any) => {
+  const handlePercentage = (clientX: number) => {
     const { current: $button } = buttonRef
 
     if ($button === null) return
 
     const { x, width } = $button.getBoundingClientRect()
 
-    let position = e.clientX - x
+    let position = clientX - x
 
     if (position < 0) position = 0
     else if (position > width) position = width
 
     const percentage = (position * 100) / width
 
-    const value = Math.floor((percentage * max) / 100)
+    const value = Math.floor((percentage * max) / 100).toString()
 
-    onChange(value)
+    onChange({
+      name,
+      value
+    })
+  }
+
+  const handleOnMouseMove = (e: any) => {
+    handlePercentage(e.clientX)
   }
 
   const handleOnMouseUp = () => {
@@ -56,20 +75,36 @@ export default function Range ({
     const { target } = e
 
     if (target === divRef.current) {
-      console.log('circle')
+      handlePercentage(e.clientX)
     }
 
     window.addEventListener('mousemove', handleOnMouseMove)
     window.addEventListener('mouseup', handleOnMouseUp)
   }
 
+  const handleOnChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+
+    if (
+      value !== '' &&
+      !numberRegExp.test(value)
+    ) return
+
+    onChange({
+      value: e.target.value,
+      name
+    })
+  }
+
   return (
     <div>
-      <div className="flex justify-between items-center gap-4 mb-4">
+      <div className="flex justify-between items-center gap-4 mb-2">
         <label className="font-medium">{title}</label>
         <div className="flex items-center gap-1">
           <input
             className="w-14 text-center bg-stone-950 rounded-md h-8 focus:outline-none"
+            onChange={handleOnChangeInput}
+            value={value}
           />
           <span>{measurer}</span>
         </div>
