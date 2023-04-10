@@ -13,7 +13,7 @@ export default function Layout ({
       <title>Document</title>
     </head>
     <body className="bg-stone-950 text-white">
-      <Header className="mb-4" />
+      <Header/>
       <main>
         {children}
       </main>
