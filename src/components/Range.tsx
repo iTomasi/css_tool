@@ -17,7 +17,7 @@ interface Props {
   name: string
 }
 
-const numberRegExp = /^(((0|[1-9]+))?(\.)?)([0-9]+)?$/
+const numberRegExp = /^(-)?(((0|[1-9]+))?(\.)?)([0-9]+)?$/
 
 export default function Range ({
   title,
@@ -36,7 +36,7 @@ export default function Range ({
 
   if (!isNaN(valueNumber)) {
     if (valueNumber > max) thePercentage = 100
-    else if (valueNumber > min) thePercentage = (valueNumber * 100) / max
+    else if (valueNumber > min) thePercentage = ((valueNumber - min) * 100) / (max - min)
   }
 
   const handlePercentage = (clientX: number) => {
@@ -53,11 +53,11 @@ export default function Range ({
 
     const percentage = (position * 100) / width
 
-    const value = Math.floor((percentage * max) / 100).toString()
+    const value = Math.floor((percentage * (max - min)) / 100)
 
     onChange({
       name,
-      value
+      value: (value + min).toString()
     })
   }
 
@@ -68,13 +68,12 @@ export default function Range ({
   const handleOnMouseUp = () => {
     window.removeEventListener('mousemove', handleOnMouseMove)
     window.removeEventListener('mouseup', handleOnMouseUp)
-    console.log('onMouseUp')
   }
 
   const handleOnMouseDown = (e: MouseEvent<HTMLButtonElement>) => {
     const { target } = e
 
-    if (target === divRef.current) {
+    if (target !== divRef.current) {
       handlePercentage(e.clientX)
     }
 

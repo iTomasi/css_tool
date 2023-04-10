@@ -4,7 +4,7 @@ import Wrapper from 'components/Wrapper'
 import Range, { type IOnChangePayload } from 'components/Range'
 
 const MEASURER = 'px'
-const MIN = 0
+const MIN = -100
 const MAX = 100
 
 export default function Page () {
@@ -59,7 +59,7 @@ export default function Page () {
         title="Blur radius"
         measurer={MEASURER}
         value={values.blur_radius}
-        min={MIN}
+        min={0}
         max={MAX}
         onChange={handleOnChangeRange}
         name="blur_radius"
