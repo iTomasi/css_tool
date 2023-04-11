@@ -101,7 +101,7 @@ export default function Range ({
         <label className="font-medium">{title}</label>
         <div className="flex items-center gap-1">
           <input
-            className="w-14 text-center bg-stone-950 rounded-md h-8 focus:outline-none"
+            className="w-14 text-center bg-white dark:bg-stone-950 rounded-md h-8 focus:outline-none"
             onChange={handleOnChangeInput}
             value={value}
           />
@@ -112,7 +112,7 @@ export default function Range ({
       <button
         ref={buttonRef}
         type="button"
-        className="w-full h-2 bg-stone-700 rounded-full"
+        className="w-full h-2 bg-gray-300 dark:bg-stone-700 rounded-full"
         onMouseDown={handleOnMouseDown}
       >
         <div

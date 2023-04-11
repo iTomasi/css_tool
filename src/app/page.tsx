@@ -2,12 +2,15 @@
 import { useState } from 'react'
 import Wrapper from 'components/Wrapper'
 import Range, { type IOnChangePayload } from 'components/Range'
+import { useTheme } from 'hooks'
 
 const MEASURER = 'px'
 const MIN = -100
 const MAX = 100
 
 export default function Page () {
+  const { theme } = useTheme()
+
   const [values, setValues] = useState({
     horizontal_offset: '0',
     vertical_offset: '0',
@@ -28,9 +31,9 @@ export default function Page () {
       childrenPreview={
         <div className="h-full grid place-items-center">
           <div
-            className="h-80 w-80 bg-stone-700"
+            className="h-80 w-80 bg-gray-300 dark:bg-stone-700"
             style={{
-              boxShadow: `${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} rgba(255, 255, 255, 0.7)`
+              boxShadow: `${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} rgba(${theme === 'light' ? '0, 0, 0, 0.7' : '255, 255, 255, 0.7'})`
             }}
           ></div>
         </div>
