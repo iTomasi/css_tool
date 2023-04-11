@@ -6,9 +6,10 @@ const config: Config = {
     './src/components/**/*.{ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [],
+  darkMode: 'class'
 }
 
 export default config
