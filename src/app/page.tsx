@@ -1,12 +1,16 @@
 'use client'
-import { useState } from 'react'
+import type { ChangeEvent } from 'react'
+import { useState, useEffect } from 'react'
 import Wrapper from 'components/Wrapper'
 import Range, { type IOnChangePayload } from 'components/Range'
+import Input from 'components/Input'
 import { useTheme } from 'hooks'
 
 const MEASURER = 'px'
 const MIN = -100
 const MAX = 100
+const LIGHT_SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)'
+const DARK_SHADOW_COLOR = 'rgba(255, 255, 255, 0.7)'
 
 export default function Page () {
   const { theme } = useTheme()
@@ -15,10 +19,32 @@ export default function Page () {
     horizontal_offset: '0',
     vertical_offset: '0',
     blur_radius: '50',
-    spread_radius: '50'
+    spread_radius: '50',
+    color: DARK_SHADOW_COLOR
   })
 
+  useEffect(() => {
+    if (
+      (theme === 'dark' && values.color !== LIGHT_SHADOW_COLOR) ||
+      (theme === 'light' && values.color !== DARK_SHADOW_COLOR)
+    ) return
+
+    setValues((prev) => ({
+      ...prev,
+      color: theme === 'dark' ? DARK_SHADOW_COLOR : LIGHT_SHADOW_COLOR
+    }))
+  }, [theme])
+
   const handleOnChangeRange = ({ name, value }: IOnChangePayload) => {
+    setValues((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleOnChangeInputColor = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+
     setValues((prev) => ({
       ...prev,
       [name]: value
@@ -33,7 +59,7 @@ export default function Page () {
           <div
             className="h-80 w-80 bg-gray-300 dark:bg-stone-700"
             style={{
-              boxShadow: `${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} rgba(${theme === 'light' ? '0, 0, 0, 0.7' : '255, 255, 255, 0.7'})`
+              boxShadow: `inset ${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} ${values.color}`
             }}
           ></div>
         </div>
@@ -76,6 +102,14 @@ export default function Page () {
         max={MAX}
         onChange={handleOnChangeRange}
         name="spread_radius"
+      />
+
+      <Input
+        labelTitle="Color"
+        placeholder="Ex. rgba(255, 255, 255, 0.7), #FFFFFF"
+        name="color"
+        value={values.color}
+        onChange={handleOnChangeInputColor}
       />
     </Wrapper>
   )
