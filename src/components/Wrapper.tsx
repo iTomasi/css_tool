@@ -52,7 +52,6 @@ export default function Wrapper ({
           </div>
         </div>
       </div>
-      
 
       <div className={`w-full px-8 py-4 ${classNamePreview}`}>
         {childrenPreview}
