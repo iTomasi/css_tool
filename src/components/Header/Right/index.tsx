@@ -1,13 +1,9 @@
-'use client'
-import { useTheme } from 'hooks'
+import DarkMode from './DarkMode'
 
 export default function Right () {
-  const { theme, toggle } = useTheme()
   return (
     <div>
-      <button type="button" onClick={toggle}>
-        {theme}
-      </button>
+      <DarkMode/>
     </div>
   )
 }
