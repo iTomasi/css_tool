@@ -66,7 +66,7 @@ export default function Page () {
       childrenPreview={
         <div className="h-full grid place-items-center">
           <div
-            className="h-80 w-80 bg-gray-300 dark:bg-stone-700"
+            className="h-56 w-56 md:h-80 md:w-80 bg-gray-300 dark:bg-stone-700"
             style={{
               boxShadow: `${values.inset ? 'inset ' : ''}${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} ${values.color}`
             }}
