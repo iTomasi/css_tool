@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Wrapper from 'components/Wrapper'
 import Range, { type IOnChangePayload } from 'components/Range'
 import Input from 'components/Input'
+import Switch from 'components/Switch'
 import { useTheme } from 'hooks'
 
 const MEASURER = 'px'
@@ -16,6 +17,7 @@ export default function Page () {
   const { theme } = useTheme()
 
   const [values, setValues] = useState({
+    inset: false,
     horizontal_offset: '0',
     vertical_offset: '0',
     blur_radius: '50',
@@ -34,6 +36,13 @@ export default function Page () {
       color: theme === 'dark' ? DARK_SHADOW_COLOR : LIGHT_SHADOW_COLOR
     }))
   }, [theme])
+
+  const handleOnClickSwitch = () => {
+    setValues((prev) => ({
+      ...prev,
+      inset: !prev.inset
+    }))
+  }
 
   const handleOnChangeRange = ({ name, value }: IOnChangePayload) => {
     setValues((prev) => ({
@@ -59,12 +68,18 @@ export default function Page () {
           <div
             className="h-80 w-80 bg-gray-300 dark:bg-stone-700"
             style={{
-              boxShadow: `inset ${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} ${values.color}`
+              boxShadow: `${values.inset ? 'inset ' : ''}${values.horizontal_offset}${MEASURER} ${values.vertical_offset}${MEASURER} ${values.blur_radius}${MEASURER} ${values.spread_radius}${MEASURER} ${values.color}`
             }}
           ></div>
         </div>
       }
     >
+      <Switch
+        title="Inset"
+        active={values.inset}
+        onClick={handleOnClickSwitch}
+      />
+
       <Range
         title="Horizontal offset"
         measurer={MEASURER}
