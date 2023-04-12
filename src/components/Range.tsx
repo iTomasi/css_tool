@@ -1,6 +1,7 @@
 'use client'
-import type { MouseEvent, ChangeEvent } from 'react'
+import type { MouseEvent, ChangeEvent, TouchEvent } from 'react'
 import { useRef } from 'react'
+import { isMobile } from 'utils'
 
 export interface IOnChangePayload {
   value: string
@@ -71,6 +72,8 @@ export default function Range ({
   }
 
   const handleOnMouseDown = (e: MouseEvent<HTMLButtonElement>) => {
+    if (isMobile()) return
+
     const { target } = e
 
     if (target !== divRef.current) {
@@ -79,6 +82,31 @@ export default function Range ({
 
     window.addEventListener('mousemove', handleOnMouseMove)
     window.addEventListener('mouseup', handleOnMouseUp)
+  }
+
+  const handleOnTouchMove = (e: any) => {
+    const clientX = e.touches[0].clientX
+
+    handlePercentage(clientX)
+  }
+
+  const handleOnTouchEnd = () => {
+    window.removeEventListener('touchmove', handleOnTouchMove)
+    window.removeEventListener('touchend', handleOnTouchEnd)
+  }
+
+  const handleOnTouchStart = (e: TouchEvent<HTMLButtonElement>) => {
+    console.log('a')
+    const { touches, target } = e
+
+    const clientX = touches[0].clientX
+
+    if (target !== divRef.current) {
+      handlePercentage(clientX)
+    }
+
+    window.addEventListener('touchmove', handleOnTouchMove)
+    window.addEventListener('touchend', handleOnTouchEnd)
   }
 
   const handleOnChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -114,6 +142,7 @@ export default function Range ({
         type="button"
         className="w-full h-2 bg-gray-300 dark:bg-stone-700 rounded-full"
         onMouseDown={handleOnMouseDown}
+        onTouchStart={handleOnTouchStart}
       >
         <div
           className="h-full bg-sky-500 rounded-full relative flex items-center"
