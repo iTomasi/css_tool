@@ -20,6 +20,7 @@ export default function Provider ({
     if (iwTheme !== 'light') return
 
     document.documentElement.classList.remove('dark')
+    setTheme('light')
   }, [])
 
   const toggle = () => {
