@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
 import Css from './Css'
-
+import Tailwind from './Tailwind'
 interface Props {
+  syntax: keyof typeof Components
   value: string
 }
 
+const Components = {
+  css: Css,
+  tailwind: Tailwind
+}
+
 export default function Code ({
+  syntax,
   value
 }: Props) {
   const [copy, setCopy] = useState<boolean>(false)
@@ -33,9 +40,11 @@ export default function Code ({
     }
   }
 
+  const Component = Components[syntax] ?? Components.css
+
   return (
     <div className="bg-stone-950 p-4 rounded-md flex justify-between items-start gap-2">
-      <Css
+      <Component
         value={value}
       />
 

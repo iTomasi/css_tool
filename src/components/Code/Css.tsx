@@ -12,8 +12,6 @@ export default function Css ({
 }: Props) {
   const split = value.split(';')
 
-  console.log(split)
-
   return (
     <div className="text-white">
       {

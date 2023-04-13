@@ -34,7 +34,7 @@ export default function Wrapper ({
     <div className="flex h-[calc(100vh-4rem)]">
       <div className="fixed top-20 left-8 lg:hidden">
         <button
-          className="border border-stone-700 h-10 px-2 rounded-md flex items-center gap-2"
+          className="bg-white dark:bg-stone-950 border border-stone-700 h-10 px-2 rounded-md flex items-center gap-2"
           type="button"
           onClick={handleOnClickToggleShow}
         >
@@ -81,7 +81,7 @@ export default function Wrapper ({
       <CodeModal
         show={showModal}
         setShow={setShowModal}
-        value={code.css}
+        value={code}
       />
     </div>
   )

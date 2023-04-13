@@ -75,7 +75,7 @@ export default function Page () {
       }
       code={{
         css: `box-shadow: ${values.inset ? 'inset ' : ''}${values.horizontal_offset}px ${values.vertical_offset}px ${values.blur_radius}px ${values.spread_radius}px ${values.color}`,
-        tailwind: ''
+        tailwind: `shadow-[${values.inset ? 'inset_' : ''}${values.horizontal_offset}px_${values.vertical_offset}px_${values.blur_radius}px_${values.spread_radius}px_${values.color}]`
       }}
     >
       <Switch
