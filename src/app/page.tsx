@@ -73,6 +73,10 @@ export default function Page () {
           ></div>
         </div>
       }
+      code={{
+        css: `box-shadow: ${values.inset ? 'inset ' : ''}${values.horizontal_offset}px ${values.vertical_offset}px ${values.blur_radius}px ${values.spread_radius}px ${values.color}`,
+        tailwind: ''
+      }}
     >
       <Switch
         title="Inset"

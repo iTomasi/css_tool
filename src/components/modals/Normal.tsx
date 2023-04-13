@@ -35,7 +35,7 @@ export default function Normal ({
       className={`fixed inset-0 z-50 grid place-items-center bg-black bg-opacity-20 dark:bg-white dark:bg-opacity-20 transition-all ${show ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
       onMouseDown={handleOnMouseDown}
     >
-      <div className="w-full">
+      <div className="w-full px-8">
         <div className="max-w-xl mx-auto bg-gray-200 dark:bg-stone-900 p-4 rounded-md">
           <div className="flex justify-end mb-4">
             <button

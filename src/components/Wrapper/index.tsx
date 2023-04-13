@@ -9,13 +9,15 @@ interface Props {
   classNamePreview?: string
   childrenPreview: ReactNode
   children: ReactNode
+  code: { css: string, tailwind: string }
 }
 
 export default function Wrapper ({
   className = '',
   classNamePreview = '',
   childrenPreview,
-  children
+  children,
+  code
 }: Props) {
   const [showLeft, setShowLeft] = useState<boolean>(false)
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -79,6 +81,7 @@ export default function Wrapper ({
       <CodeModal
         show={showModal}
         setShow={setShowModal}
+        value={code.css}
       />
     </div>
   )
